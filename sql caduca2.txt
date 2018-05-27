@@ -1,0 +1,97 @@
+DROP DATABASE IF EXISTS proyecto;
+CREATE DATABASE proyecto;
+USE proyecto;
+
+create table alimentos_pre (
+    id varchar(36),
+    nombre varchar(50) unique  NOT NULL,
+    foto varchar(255),
+
+    PRIMARY KEY (id)        
+);
+
+create table categorias_pre (
+    id varchar(36),
+    nombre varchar(50) unique  NOT NULL, 
+    icono varchar(255),
+
+    PRIMARY KEY (id)        
+);
+
+create table usuarios (
+    id varchar(36),
+    nombre varchar(30) unique  NOT NULL,
+    nombre_google varchar(255),
+    correo varchar(30) unique  NOT NULL,
+    contraseña varchar(200) NOT NULL,
+    fecha_alta Date NOT NULL,
+
+    PRIMARY KEY (id)        
+);
+
+create table alimentos_users (
+    id varchar(36),
+    nombre varchar(50) unique NOT NULL, 	
+    fecha_caducidad Date NOT NULL,
+    fecha_congelado Date,			
+    foto varchar(255) NOT NULL,
+    id_usuario varchar(36),
+    id_tipo varchar(36),
+    
+    PRIMARY KEY (id),
+    CONSTRAINT FK_AlimentoUsuario FOREIGN KEY (id_usuario)
+    REFERENCES usuarios(id)
+);
+
+create table categorias_users (
+    id varchar(36),
+    nombre varchar(50) unique NOT NULL, 
+    icono varchar(200),
+    id_usuario varchar(36),
+
+    PRIMARY KEY (id),
+    CONSTRAINT FK_CategoriaUsuario FOREIGN KEY (id_usuario)
+    REFERENCES usuarios(id)        
+);
+
+create table tipos (
+    id varchar(36),
+    nombre varchar(50) unique NOT NULL, 
+    icono varchar(255) NOT NULL,
+
+    PRIMARY KEY (id)        
+);
+
+create table usuarios_temporal (
+    id varchar(36),
+    nombre varchar(30) unique NOT NULL, 
+    correo varchar(30) unique NOT NULL,
+    contraseña varchar(200),
+    fecha_reg_temp Date NOT NULL,
+
+    PRIMARY KEY (id)        
+);
+
+CREATE TABLE login_google (
+    google_id decimal(21,0) NOT NULL,
+    email varchar(50) NOT NULL,
+    PRIMARY KEY (google_id)
+);
+
+
+create table usuarios_pruebas (contraseña varchar(10) not null, nombre varchar(10) primary key);
+
+insert into usuarios_pruebas values (1234, 'admin')
+
+
+
+
+
+INSERT INTO categorias VALUES
+(UUID(), 'Verduras de hoja verde con flor naranja', null, 'fc1e81d6-5aa0-11e8-a54d-e0d55e08b86f'),
+(UUID(), 'Comida china', null, 'fc1e81d6-5aa0-11e8-a54d-e0d55e08b86f'),
+(UUID(), 'Carne', null, 'fc1e81d6-5aa0-11e8-a54d-e0d55e08b86f'),
+(UUID(), 'Fruta', null, 'fc1e81d6-5aa0-11e8-a54d-e0d55e08b86f'),
+(UUID(), 'Pescado', null, 'fc1e81d6-5aa0-11e8-a54d-e0d55e08b86f'),
+(UUID(), 'Pasta', null, 'fc1e81d6-5aa0-11e8-a54d-e0d55e08b86f')
+;
